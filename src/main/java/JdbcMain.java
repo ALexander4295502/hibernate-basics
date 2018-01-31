@@ -26,12 +26,13 @@ public class JdbcMain {
               "(10))");
 
       // TODO: Insert a couple contacts
-      statement.executeUpdate("INSERT INTO contacts (firstname,lastname," +
-              "email,phone) VALUES ('Chirs', 'Rema', '123dasd@asdasd.com', " +
-              "'1231232131')");
-      statement.executeUpdate("INSERT INTO contacts (firstname,lastname," +
-              "email,phone) VALUES ('ab', 'cd', '123123@asdasd.com', " +
-              "'32323232')");
+      Contact c = new Contact("Chirs", "Rema", "123dasd@asdasd.com",
+              1231232131);
+      Contact c2 = new Contact("abc", "asd", "asd@asdasd.com",
+              333333333);
+
+      save(c, statement);
+      save(c2, statement);
       
       // TODO: Fetch all the records from the contacts table
       ResultSet resultSet = statement.executeQuery("SELECT * FROM contacts");
@@ -49,5 +50,16 @@ public class JdbcMain {
       // Display connection or query errors
       System.err.printf("There was a database error: %s%n",ex.getMessage());
     }
+  }
+
+  public static void save(Contact contact, Statement statement) throws SQLException{
+    // Compose the query
+    String sql = "INSERT INTO contacts (firstname, lastname, email, phone) " +
+            "VALUES ('%s', '%s', '%s', '%d')";
+    sql = String.format(sql, contact.getFirstName(), contact.getLastName(),
+            contact.getEmail(), contact.getPhone());
+
+    // Execute the query
+    statement.executeUpdate(sql);
   }
 }
