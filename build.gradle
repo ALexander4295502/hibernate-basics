@@ -1,0 +1,14 @@
+group 'Hibernate'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    runtime 'org.xerial:sqlite-jdbc:3.8.11.2'
+}
